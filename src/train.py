@@ -39,3 +39,16 @@ with open("metrics.json", "w") as f:
         "train_accuracy": accuracy_score(y_train, train_pred),
         "train_f1": f1_score(y_train, train_pred)
     }, f)
+
+
+    # Edit src/train.py to ensure it saves to model.pkl
+# Add this at the end of your train.py:
+import joblib
+joblib.dump(model, 'model.pkl')
+
+# And make sure it writes metrics.json
+with open('metrics.json', 'w') as f:
+    json.dump({
+        'accuracy': accuracy_score(y_test, y_pred),
+        'f1': f1_score(y_test, y_pred)
+    }, f)
