@@ -1,0 +1,42 @@
+# stages:
+#   preprocess:
+#     cmd: python src/preprocess.py
+#     deps:
+#       - src/preprocess.py
+#       - data/raw/telco_churn.csv
+#       - params.yaml
+#     outs:
+#       - data/processed/train.csv
+#       - data/processed/test.csv
+
+#   train:
+#     cmd: python src/train.py
+#     deps:
+#       - src/train.py
+#       - data/processed/train.csv
+#       - params.yaml
+#     outs:
+#       - mlruns/  # MLflow tracks this
+#     metrics:
+#       - mlruns/metrics.json
+
+#   evaluate:
+#     cmd: python src/evaluate.py
+#     deps:
+#       - src/evaluate.py
+#       - data/processed/test.csv
+#     metrics:
+#       - mlruns/metrics.json
+
+
+stages:
+  train:
+    cmd: python src/train.py
+    deps:
+      - src/train.py
+      - data/processed/train.csv
+      - params.yaml
+    outs:
+      - dvc_mlruns/
+    metrics:
+      - dvc_mlruns/metrics.json
